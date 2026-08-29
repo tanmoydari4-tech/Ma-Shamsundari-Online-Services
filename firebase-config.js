@@ -1,7 +1,7 @@
 // Ma Shamsundari Online Services - Firebase Web App configuration
 // Paste the actual Firebase apiKey in the blank/placeholder below.
 export const firebaseConfig = {
-  apiKey: "PASTE_YOUR_FIREBASE_API_KEY_HERE",
+  apiKey: "AIzaSyD6UixKB7z959Q1Bc77Hkw1A4juAQZ8HOc",
   authDomain: "ma-shamsundari-online-services.firebaseapp.com",
   projectId: "ma-shamsundari-online-services",
   storageBucket: "ma-shamsundari-online-services.firebasestorage.app",
