@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="Ma Shamsundari Online Services - premium online billing and cash receipt system.">
+<title>Ma Shamsundari Online Services | Premium Billing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="loginScreen" class="login-screen">
+  <div class="login-glow glow-one"></div><div class="login-glow glow-two"></div>
+  <div class="login-card">
+    <div class="brand-lockup"><div class="logo-mark">MS</div><div><div class="eyebrow">ONLINE SERVICES</div><h1>Ma Shamsundari</h1><h1>Online Services</h1></div></div>
+    <div class="login-divider"></div><h2>Admin Login</h2><p class="login-sub">Secure access to your premium billing desk</p>
+    <label>Email address<input id="loginEmail" type="email" autocomplete="username" placeholder="admin@example.com"></label>
+    <label>Password<input id="loginPassword" type="password" autocomplete="current-password" placeholder="••••••••"></label>
+    <button id="loginBtn" class="btn btn-primary full">Sign In <span>→</span></button>
+    <div id="loginMsg" class="login-msg"></div>
+    <div class="login-note">Use an Email/Password user created in Firebase Authentication.</div>
+  </div>
+</div>
+
+<div id="app" class="hidden">
+<header class="topbar">
+  <div class="brand-mini"><span class="logo-mini">MS</span><div><b>Ma Shamsundari Online Services</b><small>PREMIUM BILLING DESK</small></div></div>
+  <div class="top-actions"><button id="newBillBtn" class="btn btn-soft">＋ New Bill</button><button id="saveBtn" class="btn btn-primary">Save Bill</button><button id="logoutBtn" class="btn btn-dark">Logout</button></div>
+</header>
+<div class="layout">
+<aside class="sidebar">
+  <div class="side-label">WORKSPACE</div>
+  <button class="nav active" data-tab="billing"><span>01</span> Billing</button>
+  <button class="nav" data-tab="history"><span>02</span> Bill History</button>
+  <button class="nav" data-tab="customers"><span>03</span> Customers</button>
+  <div class="side-info"><div class="status-dot"></div><div><b>Firebase</b><span id="firebaseState">Connecting…</span></div></div>
+  <div class="side-footer">Ma Shamsundari<br><span>Online Services</span></div>
+</aside>
+<main class="content">
+<section id="billingTab" class="tab">
+  <div class="page-head"><div><div class="eyebrow">BILLING DESK</div><h2>Create New Bill</h2><p>Professional cash bill / money receipt for online services.</p></div><div class="bill-chip">BILL <b id="headBillNo">—</b></div></div>
+  <div class="card form-card">
+    <div class="card-title"><span>Customer Details</span><small>Required information</small></div>
+    <div class="grid four">
+      <label>Bill No.<input id="billNo" type="text"></label><label>Date<input id="billDate" type="date"></label><label>Customer Name <em>*</em><input id="customerName" type="text" placeholder="Customer name"></label><label>Phone / Mobile<input id="phone" type="tel" inputmode="numeric" placeholder="10 digit number"></label>
+    </div>
+    <div class="grid two"><label>Address<input id="address" type="text" placeholder="Customer address"></label><label>Additional Mobile<input id="mobile" type="tel" inputmode="numeric" placeholder="Optional"></label></div>
+    <div class="grid three"><label>Service Type<select id="serviceType"><option value="">Select Service</option><option>Online Form Fill-up</option><option>Aadhaar Appointment</option><option>PAN Card Service</option><option>Voter ID Service</option><option>Passport Application</option><option>Train / Flight Ticket Booking</option><option>Print / Scan / Photocopy</option><option>Lamination</option><option>Passport Size Photo</option><option>Recharge / Bill Payment</option><option>Other Online Service</option></select></label><label>Reference / Application No.<input id="referenceNo" type="text" placeholder="Optional"></label><label>Payment Method<select id="paymentMethod"><option>Cash</option><option>UPI</option><option>Bank Transfer</option><option>Card</option><option>Other</option></select></label></div>
+    <div class="grid three"><label>Payment Status<select id="paymentStatus"><option>Paid</option><option>Unpaid</option><option>Partial</option></select></label><label>Paid Amount<input id="paidAmount" type="text" inputmode="decimal" value="0" placeholder="0.00"></label><label>Due Amount<input id="dueAmount" type="text" value="0.00" readonly></label></div>
+  </div>
+  <div class="card items-editor-card" id="itemsEditorCard">
+    <div class="card-title row"><span>Services / Particulars</span><button id="addItemBtn" class="btn btn-soft">＋ Add Item</button></div>
+    <div class="items-head"><span>#</span><span>Description</span><span>Qty</span><span>Rate</span><span>Amount</span><span></span></div><div id="items"></div>
+    <div class="grand-total"><span>Total Amount</span><strong>₹ <b id="editorTotal">0.00</b></strong></div>
+  </div>
+  <div class="payment-summary"><div><span>Total</span><strong>₹ <b id="summaryTotal">0.00</b></strong></div><div><span>Paid</span><strong>₹ <b id="summaryPaid">0.00</b></strong></div><div><span>Due</span><strong>₹ <b id="summaryDue">0.00</b></strong></div></div>
+  <div class="action-bar card"><button id="printBtn" class="btn btn-dark">🖨 Print / PDF</button><button id="shareBtn" class="btn btn-gold">WhatsApp Bill</button><button id="clearBtn" class="btn btn-soft">Clear</button><span id="saveStatus"></span></div>
+
+  <section class="bill-paper" id="billPaper">
+    <div class="paper-header"><div class="paper-brand"><div class="paper-logo">MS</div><div><h1>Ma Shamsundari</h1><h2>ONLINE SERVICES</h2><p>YOUR ONLINE PARTNER</p></div></div><div class="receipt-box"><b>CASH BILL / MONEY RECEIPT</b><div>Bill No. <strong id="pBillNo">—</strong></div><div>Date: <strong id="pDate"></strong></div></div></div>
+    <div class="paper-contact"><span>Online Services • Fast & Reliable Work</span><strong>Phone: <span id="pPhoneTop"></span></strong></div>
+    <div class="paper-fields"><div><span>Customer Name</span><b id="pName"></b></div><div><span>Mobile No.</span><b id="pMobile"></b></div><div class="wide"><span>Address</span><b id="pAddress"></b></div></div>
+    <table><thead><tr><th>Sl.</th><th>SERVICE / PARTICULARS</th><th>Qnty.</th><th>Rate (₹)</th><th>Amount (₹)</th></tr></thead><tbody id="printItems"></tbody><tfoot><tr><td colspan="4">TOTAL AMOUNT</td><td>₹ <b id="pTotal">0.00</b></td></tr></tfoot></table>
+    <div class="paper-bottom"><div><b>Payment Mode</b><span id="pPayment"></span></div><div><b>Note</b><span>Please check your details before leaving.<br>Thank you, Visit Again!</span></div><div class="signature"><span>Authorized Signature</span></div></div>
+  </section>
+</section>
+<section id="historyTab" class="tab hidden"><div class="page-head"><div><div class="eyebrow">RECORDS</div><h2>Bill History</h2><p>Search, open, edit or create a new bill from any saved record.</p></div></div><div class="card search-card"><input id="historySearch" placeholder="Search bill no, customer, phone…"><button id="refreshHistory" class="btn btn-dark">Refresh</button><button id="historyNewBill" class="btn btn-primary">＋ New Bill</button></div><div id="historyList" class="history-grid"></div></section>
+<section id="customersTab" class="tab hidden"><div class="page-head"><div><div class="eyebrow">CUSTOMERS</div><h2>Customer Directory</h2><p>Customer details are grouped from saved bills.</p></div></div><div class="card search-card"><input id="customerSearch" placeholder="Search customer or phone…"><button id="refreshCustomers" class="btn btn-dark">Refresh</button></div><div id="customerList" class="customer-grid"></div></section>
+</main></div></div>
+<div id="editModal" class="modal hidden"><div class="modal-card"><div class="modal-head"><div><div class="eyebrow">CUSTOMER RECORD</div><h3>Edit Customer Details</h3></div><button id="closeEdit" class="close" type="button">×</button></div><label>Customer Name<input id="editName" type="text"></label><label>Phone / Mobile<input id="editPhone" type="tel" inputmode="numeric"></label><div class="modal-actions"><button id="cancelEdit" class="btn btn-soft">Cancel</button><button id="saveEdit" class="btn btn-primary">Save Changes</button></div></div></div>
+<div id="toast" class="toast"></div>
+<script type="module" src="app.js"></script>
+</body></html>
